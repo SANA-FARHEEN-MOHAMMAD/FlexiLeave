@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Employee Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Keep original minimal inline styles; global CSS will visually enhance */
+    body { font-family: Arial, sans-serif; background:#f3f6fb; }
+    .card { background:#fff; width:90%; max-width:1000px; margin:30px auto; padding:20px; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+    .top { display:flex; justify-content:space-between; align-items:center; }
+    .buttons { display:flex; gap:12px; margin-top:20px; }
+    .buttons button { padding:10px 14px; border-radius:8px; border:1px solid #ddd; background:#f8fafc; cursor:pointer; }
+    .buttons button.active { background:#2563eb; color:#fff; border-color:#2563eb; }
+    #content { margin-top:20px; }
+    .form-row { margin-bottom:12px; }
+    input, select, textarea { width:100%; padding:8px 10px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
+    .small { width:120px; display:inline-block; }
+    .inline { display:flex; gap:10px; }
+    .modal { position:fixed; left:0; top:0; right:0; bottom:0; background:rgba(0,0,0,0.45); display:flex; justify-content:center; align-items:center; }
+    .modal .box { background:#fff; padding:20px; border-radius:8px; min-width:260px; text-align:center; }
+    .okbtn { padding:8px 14px; border:none; border-radius:6px; background:#2563eb; color:#fff; cursor:pointer; }
+    .muted { color:#666; font-size:0.95rem; }
+    .small-btn { padding:6px 10px; border-radius:6px; cursor:pointer; }
+    .tab.active { background:#2563eb; color:#fff; border-color:#2563eb; }
+  </style>
+</head>
+<body class="page-employee">
+  <div class="card dashboard">
+    <header class="top">
+      <div>
+        <h2 id="welcomeTitle">Welcome, Employee</h2>
+        <div class="muted">Your ID: <span id="userId"></span> &nbsp; Email: <span id="userEmail"></span></div>
+      </div>
+      <div>
+        <button id="logoutBtn" class="small-btn btn btn-outline">Logout</button>
+      </div>
+    </header>
+
+    <nav class="buttons" role="navigation" aria-label="actions">
+      <button id="btnNew" class="tab">New Leave Request</button>
+      <button id="btnStatus" class="tab">Check Status</button>
+      <button id="btnHistory" class="tab">History</button>
+      <button id="btnProfile" class="tab">Profile</button>
+    </nav>
+
+    <section id="content" class="content fade-in">
+      <p id="initialMsg" class="muted">Pick your action</p>
+    </section>
+  </div>
+
+  <!-- Simple modal container -->
+  <div id="modalContainer" style="display:none;"></div>
+
+  <script src="js/employee.js"></script>
+</body>
+</html>

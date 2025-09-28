@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>FLEXILEAVE HOME</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body class="page-index">
+  
+   <div id="background"></div>
+  <main class="container">
+    <h1 class="title text-balance">FlexiLeave</h1>
+    <section class="role-selection" aria-label="Choose your role">
+      <div class="role-box" id="employeeBox" role="button" tabindex="0" aria-label="Employee login"
+           onclick="showLogin('EMPLOYEE')" onkeypress="if(event.key==='Enter'){showLogin('EMPLOYEE')}">
+        <h2 class="role-heading">Employee</h2>
+        <p class="muted">Ask for leave requests and check your leave hisotry</p>
+      </div>
+      <div class="role-box" id="managerBox" role="button" tabindex="0" aria-label="Manager login"
+           onclick="showLogin('MANAGER')" onkeypress="if(event.key==='Enter'){showLogin('MANAGER')}">
+        <h2 class="role-heading">Manager</h2>
+        <p class="muted">Review leave requests and lookup employees</p>
+      </div>
+    </section>
+
+    <section id="loginSection" class="form-section panel" style="display:none;" aria-live="polite">
+      <div class="panel-head">
+        <div class="inline">
+          <h2 id="loginRoleTitle" class="panel-title"></h2>
+        </div>
+        <button id="closeLogin" class="btn-close" aria-label="Close login">×</button>
+      </div>
+      <form id="loginForm" class="stack">
+        <label class="sr-only" for="loginEmail">Email</label>
+        <div class="input-icon">
+          <span class="icon-left" aria-hidden="true">✉</span>
+          <input type="email" id="loginEmail" placeholder="Email" required autocomplete="username" />
+        </div>
+        <div class="input-icon password-container">
+          <label class="sr-only" for="loginPassword">Password</label>
+          <span class="icon-left" aria-hidden="true">🔑</span>
+          <input type="password" id="loginPassword" placeholder="Password" required autocomplete="current-password" />
+          <span class="eye" onclick="togglePassword('loginPassword')" aria-label="Toggle password visibility" role="button" tabindex="0">&#128065;</span>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+      <p id="loginMessage" class="muted" role="status" aria-live="polite"></p>
+      <button class="link-btn" onclick="showForgot()" aria-label="Forgot password">Forgot Password?</button>
+    </section>
+
+    <section id="forgotSection" class="form-section panel" style="display:none;" aria-live="polite">
+      <div class="panel-head">
+        <div class="inline">
+          <h2 class="panel-title">Forgot Password</h2>
+        </div>
+        <button id="closeForgot" class="btn-close" aria-label="Close forgot password">×</button>
+      </div>
+      <form id="forgotForm" class="stack">
+        <label class="sr-only" for="forgotEmail">Email</label>
+        <input type="email" id="forgotEmail" placeholder="Email" required />
+        <button type="submit" class="btn btn-primary">Send OTP</button>
+      </form>
+      <div id="forgotOtpSection" class="stack" style="display:none;">
+        <label class="sr-only" for="forgotOtp">OTP</label>
+        <input type="text" id="forgotOtp" placeholder="Enter OTP" />
+        <button id="verifyForgotOtp" class="btn btn-primary">Verify OTP</button>
+      </div>
+      <p id="forgotMessage" class="muted" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="signupSection" class="form-section panel" style="display:none;" aria-live="polite">
+      <div class="panel-head">
+        <h2 class="panel-title">New User Signup</h2>
+        <button id="closeSignup" class="btn-close" aria-label="Close signup">×</button>
+      </div>
+      <form id="signupForm" class="stack">
+        <label class="sr-only" for="name">Name</label>
+        <input type="text" id="name" placeholder="Name" required />
+        <label class="sr-only" for="email">Email</label>
+        <input type="email" id="email" placeholder="Email" required autocomplete="email" />
+        <div class="password-container">
+          <label class="sr-only" for="password">Password</label>
+          <input type="password" id="password" placeholder="Password" required autocomplete="new-password" />
+          <span class="eye" onclick="togglePassword('password')" aria-label="Toggle password visibility" role="button" tabindex="0">&#128065;</span>
+        </div>
+        <label class="sr-only" for="role">Role</label>
+        <select id="role" aria-label="Select role">
+          <option value="EMPLOYEE">Employee</option>
+          <option value="MANAGER">Manager</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Signup</button>
+      </form>
+      <div id="otpSection" class="stack" style="display:none;">
+        <label class="sr-only" for="otpCode">OTP</label>
+        <input type="text" id="otpCode" placeholder="Enter OTP" />
+        <div class="inline">
+          <button id="verifyOtpBtn" class="btn btn-primary">Verify OTP</button>
+          <button id="resendOtp" class="btn btn-outline">Resend OTP</button>
+        </div>
+      </div>
+      <p id="message" class="muted" role="status" aria-live="polite"></p>
+    </section>
+
+    <div class="inline spread">
+      <button id="showSignup" class="link-btn">New user? Sign Up</button>
+    </div>
+
+    <button id="tryDemoBtn" class="fab">Try Demo</button>
+    <div id="demoPopup" class="popover" style="display:none;" role="dialog" aria-modal="false" aria-label="Sample Login">
+      <h2 class="popover-title">Sample Login</h2>
+      <strong>Manager:</strong>
+      <p>Email: vitaptrio@gmail.com<br />Password: hibye</p>
+      <strong>Employee:</strong>
+      <p>Email: hereforfun2612@gmail.com<br />Password: hibye</p>
+      <button id="closeDemoPopup" class="btn btn-outline btn-sm" style="margin-top:6px;">Close</button>
+    </div>
+  </main>
+
+  <div id="overlay" class="overlay" style="display:none;"></div>
+
+  <script src="./js/app.js"></script>
+  <script>
+    (function () {
+      const overlay = document.getElementById('overlay');
+      const login = document.getElementById('loginSection');
+      const signup = document.getElementById('signupSection');
+      const forgot = document.getElementById('forgotSection');
+      const closeLogin = document.getElementById('closeLogin');
+      const closeSignup = document.getElementById('closeSignup');
+      const closeForgot = document.getElementById('closeForgot');
+
+      function anyOpen() {
+        return (login && login.style.display !== 'none') ||
+               (signup && signup.style.display !== 'none') ||
+               (forgot && forgot.style.display !== 'none');
+      }
+      function showOverlayIfNeeded() {
+        if (!overlay) return;
+        overlay.style.display = anyOpen() ? 'block' : 'none';
+      }
+      function hideAll() {
+        if (login) login.style.display = 'none';
+        if (signup) signup.style.display = 'none';
+        if (forgot) forgot.style.display = 'none';
+        if (overlay) overlay.style.display = 'none';
+        // also undim role boxes if you dim them elsewhere
+        const dims = document.querySelectorAll('.role-box.dim');
+        dims.forEach(d => d.classList.remove('dim'));
+      }
+
+      // Safely wrap existing global functions if they exist
+      const prevShowLogin = window.showLogin;
+      window.showLogin = function(role) {
+        if (typeof prevShowLogin === 'function') prevShowLogin(role);
+        showOverlayIfNeeded();
+      }
+      const prevShowSignup = window.showSignup;
+      window.showSignup = function() {
+        if (typeof prevShowSignup === 'function') prevShowSignup();
+        showOverlayIfNeeded();
+      }
+      const prevShowForgot = window.showForgot;
+      window.showForgot = function() {
+        if (typeof prevShowForgot === 'function') prevShowForgot();
+        showOverlayIfNeeded();
+      }
+
+      // Open buttons
+      if (document.getElementById('showSignup')) document.getElementById('showSignup').addEventListener('click', showSignup);
+
+      // Close buttons
+      if (closeLogin) closeLogin.addEventListener('click', hideAll);
+      if (closeSignup) closeSignup.addEventListener('click', hideAll);
+      if (closeForgot) closeForgot.addEventListener('click', hideAll);
+
+      // Click outside (overlay)
+      if (overlay) overlay.addEventListener('click', hideAll);
+
+      // On load (in case something is pre-opened)
+      showOverlayIfNeeded();
+    })();
+  </script>
+</body>
+</html>
